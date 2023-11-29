@@ -1,0 +1,164 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <h1>Content Goes here</h1> -->
+        <div class="card h-100">
+            <div class="card-header card-header-success form-container" >
+                <h2 class="card-title ">Create New Survey</h2>
+                <p class="card-category"> Create A Survey</p>
+            </div>
+
+            <div class="form-container" style="">
+              
+              <mat-horizontal-stepper [linear]="isLinear" class="w-100" #stepper (selectionChange)="onStepSelectionChange($event)">
+                <!-- Step 1 -->
+                <mat-step [stepControl]="step1Form">
+                  <ng-template matStepLabel>Basic Survey Details</ng-template>
+                  <div class="form-container">
+                    <h3>Basic Survey Details</h3>
+                    <form [formGroup]="step1Form" (ngSubmit)="onSubmitStep1()">
+                      <mat-form-field>
+                        <input matInput formControlName="title" placeholder="Title" />
+                        <mat-error *ngIf="step1Form.get('title').invalid && step1Form.get('title').touched">
+                          Title is required
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <textarea matInput formControlName="description" placeholder="Description"></textarea>
+                        <mat-error *ngIf="step1Form.get('description').invalid && step1Form.get('description').touched">
+                          Description is required
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <input matInput formControlName="startDate" placeholder="Start Date" type="datetime-local" />
+                        <mat-error *ngIf="step1Form.get('startDate').invalid && step1Form.get('startDate').touched">
+                          Start Date is required
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <input matInput formControlName="endDate" placeholder="End Date" type="datetime-local" />
+                        <mat-error *ngIf="step1Form.get('endDate').invalid && step1Form.get('endDate').touched">
+                          End Date is required and must be greater than Start Date
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <textarea matInput formControlName="welcomeText" placeholder="Welcome Text"></textarea>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <textarea matInput formControlName="endingText" placeholder="Ending Text"></textarea>
+                      </mat-form-field>
+                      <br /><br />
+                      <button mat-raised-button color="primary" type="submit" matStepperNext>Next Stage</button>
+                    </form>
+                  </div>
+                </mat-step>
+              
+                <!-- Step 2 -->
+                <mat-step [stepControl]="step2Form">
+                  <ng-template matStepLabel>Select Question Group</ng-template>
+                  <div class="form-container">
+                    <form [formGroup]="step2Form" (ngSubmit)="onSubmitStep2()">
+                      <mat-form-field>
+                        <mat-label>Question Group</mat-label>
+                        <mat-select formControlName="questionGroup" placeholder="Select Question Group">
+                          <!-- Use *ngFor to loop through your question groups -->
+                          <mat-option *ngFor="let group of questionGroups" [value]="group.value">
+                            {{ group.label }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="step2Form.get('questionGroup').invalid && step2Form.get('questionGroup').touched">
+                          Question Group is required
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <mat-form-field>
+                        <input matInput formControlName="senderId" placeholder="Sender ID" />
+                        <mat-error *ngIf="step2Form.get('senderId').invalid && step2Form.get('senderId').touched">
+                          Sender ID is required and must contain only numbers
+                        </mat-error>
+                      </mat-form-field>
+                      <br /><br />
+                      <button mat-raised-button color="primary" type="submit" matStepperNext>Next Stage</button>
+                    </form>
+                  </div>
+                </mat-step>
+
+                <!-- STEP 4 -->
+                
+    
+
+<!-- Step 3 -->
+<mat-step [stepControl]="step3Form">
+  <ng-template matStepLabel>Process and Create Users</ng-template>
+  <div class="form-container">
+    <form [formGroup]="step3Form" (ngSubmit)="onSubmitStep3()">
+      <h3>Import Participants MSISDN</h3>
+      <br> <hr>
+      <!-- Dropdown to select MSISDN input type -->
+      <mat-form-field>
+        <mat-label>Select MSISDN Input Type</mat-label>
+        <br>
+        <mat-select formControlName="msisdnInputType">
+          <mat-option value="file">File Upload</mat-option>
+          <mat-option value="text">Manual Typing</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+      <!-- File input -->
+      <div *ngIf="step3Form.get('msisdnInputType').value === 'file'">
+        <!-- File upload -->
+        <!-- You can use PrimeNG fileUpload or a custom styled file input -->
+        <!-- For simplicity, here's a basic file input -->
+        <input type="file" [formControl]="step3Form.get('file')" multiple />
+        <mat-error *ngIf="step3Form.get('file').hasError('required')">
+          File is required
+        </mat-error>
+      </div>
+
+      <!-- Text area for manual typing -->
+      <div *ngIf="step3Form.get('msisdnInputType').value === 'text'">
+        <mat-form-field>
+          <textarea matInput formControlName="textAreaWithChips" placeholder="Enter MSISDNs"></textarea>
+        </mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let chip of step3Form.get('textAreaWithChips').value.split(',')" removable (removed)="removeChip(chip)">
+            {{ chip }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+   
+      </div>
+
+      <br /><br />
+      <button mat-raised-button color="primary" type="submit" matStepperNext>Import Participants</button>
+    </form>
+  </div>
+</mat-step>
+
+
+<!-- STEP 4 -->
+                
+<mat-step [stepControl]="step1Form">
+  <ng-template matStepLabel>Confirm The details</ng-template>
+  <div class="form-container">
+    <h3>Confirm</h3>
+  
+  </div>
+</mat-step>
+
+              </mat-horizontal-stepper>
+              
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12"></div>
+    </div>
+  </div>
+</div>

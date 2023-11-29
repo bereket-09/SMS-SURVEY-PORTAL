@@ -1,0 +1,85 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    // background-color: #f4f4f4;
+  }
+
+  form{
+    width:80%;
+
+  }
+  
+  .question-card {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .question-card:hover {
+    transform: scale(1.01);
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .remove-button {
+    margin-top: 16px;
+  }
+  
+  .options-section {
+    margin-top: 16px;
+  }
+  
+  .option-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .add-option-button {
+    margin-top: 8px;
+  }
+  
+  .add-question-button {
+    margin-top: 16px;
+  }
+  
+  .existing-question-section {
+    margin-top: 16px;
+  }
+  
+  .Options{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .example-handle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 24px;
+    height: 24px;
+  }
+
+  .mat-horizontal-stepper-header-container{
+    background-color: red !important;
+  }

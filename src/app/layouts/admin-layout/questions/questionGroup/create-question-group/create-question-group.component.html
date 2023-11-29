@@ -1,0 +1,68 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- <h1>Content Goes here</h1> -->
+          <div class="card h-100">
+              <div class="card-header card-header-success form-container" >
+                  <h2 class="card-title ">Create Question Group</h2>
+                  <p class="card-category"> A new Question Group to be used for Surveys</p>
+              </div>
+
+              <div class="form-container" style="">
+                
+                <mat-horizontal-stepper [linear]="isLinear" class="w-100" #stepper (selectionChange)="onStepSelectionChange($event)">
+                  <!-- Step 1 -->
+                  <mat-step [stepControl]="step1Form">
+                    <ng-template matStepLabel>Enter Question Group Details</ng-template>
+                  
+                    <div class="form-container">
+                      <h3>Basic Question Group Details</h3>
+                      <br> <hr>
+                      <form [formGroup]="step1Form" (ngSubmit)="onSubmitStep1()">
+                        <!-- Your form controls -->
+                  
+                        <mat-form-field>
+                          <input matInput formControlName="groupName" placeholder="Group Name" />
+                          <mat-error *ngIf="step1Form.get('groupName').invalid && step1Form.get('groupName').touched">
+                            Group Name is required
+                          </mat-error>
+                        </mat-form-field>
+                        <br /><br />
+                        <mat-form-field>
+                          <textarea matInput formControlName="groupDescription" placeholder="Group Description"></textarea>
+                          <mat-error *ngIf="step1Form.get('groupDescription').invalid && step1Form.get('groupDescription').touched">
+                            Group Description is required
+                          </mat-error>
+                        </mat-form-field>
+                  
+                        <br />
+                        <!-- Place matStepperNext directly on the button -->
+                        <button mat-raised-button color="primary" type="submit" matStepperNext>Next Stage</button>
+                      </form>
+                    </div>
+                  </mat-step>
+                
+                  <mat-step [stepControl]="questionForm" [completed]="isQuestionFormValid" > 
+                    <ng-template matStepLabel>Create Questions </ng-template>
+                   <app-create-questions [formGroup]="questionForm"></app-create-questions>
+                  </mat-step>
+
+                  <!-- Step 2 -->
+                  <mat-step [stepControl]="step2Form" >
+                    <ng-template matStepLabel>Confirm Details</ng-template>
+                    fasdfdsaf
+                  </mat-step>
+                
+                  <!-- Add more steps as needed -->
+                
+                </mat-horizontal-stepper>
+                
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12"></div>
+      </div>
+    </div>
+  </div>
+  

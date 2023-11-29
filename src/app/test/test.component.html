@@ -1,0 +1,97 @@
+<!-- <div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card h-100">
+          <div class="card-header card-header-success">
+            <h3 class="card-title">Simple Table</h3>
+            <p class="card-category">Here is a subtitle for this table : {{this.questionForm.valid}}</p>
+          </div> -->
+
+          <div class="form-container" cdkDropList (cdkDropListDropped)="drop($event)">
+            <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+              <div formArrayName="questions">
+                <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" cdkDrag class="question-card" [ngClass]="{ 'error-border': question.invalid && (question.dirty || question.touched) }">
+                  <div class="example-handle" cdkDragHandle>
+                    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                  </div>
+                  <div class="question-header" style="font-weight: bold;">
+                    <p>Question {{ i + 1 }}</p>
+                  </div>
+                  <label class="form-label" style="font-weight: bold;">
+                    Question Text:
+                    <input matInput formControlName="text" class="form-control" required />
+                  </label>
+
+                  <label class="form-label" style="font-weight: bold;">
+                    Question Type:
+                    <mat-select formControlName="type" class="form-control" (selectionChange)="onQuestionTypeChange(question)">
+                      <mat-option value="multiple-choice">Multiple Choice</mat-option>
+                      <mat-option value="short-answer">Short Answer</mat-option>
+                      <mat-option value="existing-question">Existing Question</mat-option>
+                    </mat-select>
+                  </label>
+
+                  <div *ngIf="question.get('type').value === 'multiple-choice'" class="options-section">
+                    <div class="Options">
+                      <label class="form-label" style="font-weight: bold;">Options:</label>
+                      <button mat-icon-button color="primary" (click)="addOption(question)" type="button">
+                        <mat-icon>library_add</mat-icon>
+                      </button>
+                    </div>
+                   
+                    <div formArrayName="options">
+                      <div *ngFor="let option of question.get('options').controls; let j = index" class="option-item">
+                        <input matInput [formControl]="option" class="form-control" required />
+                        <button mat-icon-button color="warn" type="button" (click)="removeOption(question, j)">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <p style="font-weight: bold;">Total Options: {{ question.get('options').length }}</p>
+                  </div>
+
+                  <!-- Select Existing Question Section -->
+                  <div *ngIf="question.get('type').value === 'existing-question'" class="existing-question-section">
+                    <label class="form-label">Select Existing Question:</label>
+                    <mat-select formControlName="selectedExistingQuestion" class="form-control" required (selectionChange)="onSelectExistingQuestion(question)">
+                      <mat-option *ngFor="let option of preExistingQuestions" [value]="option">{{ option.text }}</mat-option>
+                    </mat-select>
+                  
+                    <!-- Display Options for Selected Existing Question -->
+                    <div *ngIf="question.get('selectedExistingQuestion')?.value?.options" class="options-list">
+                      <label class="form-label">Options:</label>
+                      <ul>
+                        <li *ngFor="let option of question.get('selectedExistingQuestion')?.value?.options">{{ option }}</li>
+                      </ul>
+                      <p style="font-weight: bold;">Total Options: {{ question.get('selectedExistingQuestion')?.value?.options.length }}</p>
+                    </div>
+                  </div>
+                  
+
+                  <button mat-mini-fab color="warn" type="button" (click)="removeQuestion(i)" class="remove-button">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="Options">
+
+            
+              <button mat-raised-button color="primary" type="button" (click)="addQuestion()" class="add-question-button"> <mat-icon>add</mat-icon> Question</button>
+              <button mat-raised-button color="primary" type="submit" class="add-question-button" style="background-color: green;"><mat-icon>done</mat-icon>Submit Questions</button>
+            </div>
+              
+            </form>
+          </div>
+
+
+        <!-- </div>
+      </div>
+      <div class="col-md-12"></div>
+    </div>
+  </div>
+</div> -->
